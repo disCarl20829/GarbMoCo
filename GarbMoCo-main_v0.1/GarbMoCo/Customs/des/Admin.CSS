@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('res/GarbageTruck.jpg');
+  background-size: cover;    
+  background-position: top; 
+  background-repeat: no-repeat; 
+}
+h1 {
+  text-align: center;
+  color: white;
+}
+h1:hover {
+  color: yellow; 
+  cursor: pointer;
+}
+h2 {
+  text-align: center;
+  color: white;
+}
+h2:hover {
+  color: yellow; 
+  cursor: pointer;
+}
+.sidebar {
+  height: 100%;
+  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  padding-top: 20px;
+}
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebarBtn {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.sidebarBtn:hover {
+  background-color: skyblue;
+}
+.sidebarBtn:active {
+  background-color: skyblue;
+}
+.logout {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: #f00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.logout:hover {
+  background-color: rebeccapurple;
+}
+.content {
+  margin-left: 220px;  
+  padding: 20px;
+}
+.logo {
+    width: 120px;     
+    height: auto;      
+    display: block;
+    margin: 0 auto 20px auto; 
+    position: static; 
+}
