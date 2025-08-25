@@ -6,27 +6,19 @@ body {
   background-position: 0% 20%; 
   background-repeat: no-repeat; 
 }
-
-h1 {
+h1, h2 {
+  margin-left: 190px;
   text-align: center;
   color: white;
 }
-
 h1:hover {
   color: yellow; 
   cursor: pointer;
 }
-
-h2 {
-  text-align: center;
-  color: white;
-}
-
 h2:hover {
   color: yellow; 
   cursor: pointer;
 }
-
 .sidebar {
   transition: width 0.3s;
   height: 100%;
@@ -39,15 +31,12 @@ h2:hover {
   backdrop-filter: blur(8px);         
   box-shadow: 2px 0 10px rgba(0,0,0,0.2); 
 }
-
 .sidebar ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-
-
-.sidebarBtnReport, .sidebarBtnTrack, .sidebarBtnAbout{
+.sidebarBtn {
   display: block;
   width: 90%;
   margin: 10px auto;
@@ -61,25 +50,18 @@ h2:hover {
   font-size: 16px;
   transition: 0.3s;
 }
-.sidebarBtnReport, .sidebarBtnTrack, .sidebarBtnAbout:focus {
-  outline: none;
+.sidebarBtn:hover {
+  background-color: skyblue;
 }
-.sidebarBtnReport:hover, .sidebarBtnTrack:hover, .sidebarBtnAbout:hover {
-  background-color: #08c;
+.sidebarBtn:active {
+  background-color: skyblue;
 }
-
-.content {
-  margin-left: 220px;  
-  padding: 20px;
-}
-
 .logout {
   display: block;
   width: 90%;
   margin: 10px auto;
   padding: 12px;
-  background-color: red;
-  /* Button color */
+  background-color: #f00;
   color: white;
   border: none;
   border-radius: 8px;
@@ -88,9 +70,12 @@ h2:hover {
   font-size: 16px;
   transition: 0.3s;
 }
-
 .logout:hover {
-  background-color: rebeccapurple; 
+  background-color: rebeccapurple;
+}
+.content {
+  margin-left: 220px;  
+  padding: 20px;
 }
 .logo {
     width: 120px;     
