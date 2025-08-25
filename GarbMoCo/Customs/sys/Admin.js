@@ -8,13 +8,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  const logoutButton = document.querySelector(".sidebarBtnAbout");
-
-  if (logoutButton) {
-    logoutButton.addEventListener("click", function () {
-      window.location.href = "AboutUs.html"; 
-    });
-  }
-});

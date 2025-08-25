@@ -9,22 +9,26 @@ function showPass() {
 }
 
 function buttonLog() {
- const username = document.getElementById('username');
- const inputUsername = username.value
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
 
- const password = document.getElementById('password');
- const inputPassword = password.value
+  const getPasswordUser = "user123";
+  const getUsernameUser = "User";
 
- const getPassword = "abc123"
- const getUsername = "gwapoko123"
+  const getPasswordAdmin = "admin123";
+  const getUsernameAdmin = "Admin";
 
- if (inputPassword == getPassword && inputUsername == getUsername) {
-  alert("Logging you in\nWelcome " + getUsername + "!")
-  window.open("homepage.html", "_self")
-  window.close
- } else if (inputUsername !== getUsername) {
-  alert("Invalid Username")
- } else {
-  alert("Invalid Password. Please try again")
- }
+  if (username === getUsernameUser && password === getPasswordUser) {
+    alert("Logging you in\nWelcome " + getUsernameUser + "!");
+    window.location.href = 'Home.html';
+  } else if (username === getUsernameAdmin && password === getPasswordAdmin) {
+    alert("Logging you in\nWelcome " + getUsernameAdmin + "!");
+    window.location.href = 'Admin.html';
+  } else if (username !== getUsernameUser && username !== getUsernameAdmin) {
+    alert("Invalid Username. Please try again");
+    usernameField.value = "";
+  } else {
+    alert("Invalid Password. Please try again");
+    passwordField.value = "";
+  }
 }
