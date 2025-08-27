@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="fil">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GarbMoCo | Report</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="Customs/des/Report.css">
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="Customs/sys/Report.js"></script>
+    </head>
+
+    <body>
+        <h1>REPORT</h1>
+
+        <div style="display: flex; gap: 2rem;">
+         <div style="flex: 1;">
+            <div id="map" style="height: 400px; width: 100%;"></div>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+            <p id="location">Click somewhere on the map!</p>
+            <p>As clicking this button, I hereby sign unto RA 12BLABLA that false reports may end up in charges</p>
+            <button id="locatebtn">Locate Me</button>
+            <button id="locationbtn">Lock location</button>
+            <label for="reportDetails">Report Details:</label>
+            <textarea id="reportDetails" rows="5" cols="30"></textarea>
+            <label for="proofImages">Upload Pictures for Proof:</label>
+            <input type="file" id="proofImages" name="proofImages" accept="image/*" multiple>
+            <button id="submitReport">Submit Report</button>
+        </div>
+     </div>
+
+        <script>mapOnSet();</script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="fil">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GarbMoCo | Log In</title>
+        <link rel="stylesheet" href="Customs/des/Login.CSS">
+        <script src="Customs/sys/Login.js"></script>
+    </head>
+
+    <body>
+        <div>
+            <h1>Welcome to GarbMoCo</h1>
+            <h2>Advanced Prototype for Garbage Monitoring and Collection on Solid Waste</h2>
+        </div>
+
+        <form onsubmit="buttonLog(); return false;" method="POST" class="login-container">
+            <div>
+                <div>
+                    <label for="username">Please enter your username</label><br>
+                    <input type="text" placeholder="Username" name="username" id="username" required>
+                </div>
+
+                <br><br>
+
+                <div>
+                    <label for="password">Please enter your password</label><br>
+                    <input type="password" placeholder="Password" name="password" id="password" required>
+                </div>
+
+                <br><br>
+
+                <div>
+                   <label for="showPassword">Show Password</label>
+                   <input type="checkbox" id="showPassword" onclick="showPass()">
+                </div>
+
+                <br><br><br>
+
+                <div>
+                    <button type="submit" value="login">Log In</button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
