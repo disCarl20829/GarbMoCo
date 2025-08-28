@@ -35,3 +35,67 @@ h3:hover {
   color: yellow; 
   cursor: pointer;
 }
+
+.aboutPhoto1{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 50px;   
+    top: -20px;   
+}
+.aboutPhoto2{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 150px;   
+    top: -20px;   
+}
+.aboutPhoto3{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 250px;   
+    top: -20px;   
+}
+.aboutPhoto4{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 350px;   
+    top: -20px;   
+}
+.aboutPhoto5{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 450px;   
+    top: -20px;   
+}
+.aboutPhoto6{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: -700px;   
+    top: 200px;   
+}
+.aboutPhoto7{
+    width: 150px;      
+    height: 150px;     
+    object-fit: cover; 
+
+    position: relative;
+    left: 150px;   
+    top: 200px;   
+}
