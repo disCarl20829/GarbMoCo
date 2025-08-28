@@ -14,7 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
-      window.location.href = "AboutUs.html"; 
+      window.location.href = "About.html"; 
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const logoutButton = document.querySelector(".sidebarBtnReport");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", function () {
+      window.location.href = "Report.html"; 
     });
   }
 });
