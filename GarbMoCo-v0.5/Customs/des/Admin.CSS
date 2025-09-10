@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('res/NewCityHall.jpg');
+  background-size: 1400px auto;    
+  background-position: 0% 20%; 
+  background-repeat: no-repeat; 
+}
+h1, h2 {
+  margin-left: 190px;
+  text-align: center;
+  color: white;
+}
+h1:hover {
+  color: yellow; 
+  cursor: pointer;
+}
+h2:hover {
+  color: yellow; 
+  cursor: pointer;
+}
+.sidebar {
+  transition: width 0.3s;
+  height: 100%;
+  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: (34, 34, 34, 0.5); 
+  padding-top: 20px;
+  backdrop-filter: blur(8px);         
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2); 
+}
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebarBtnTrack, .sidebarBtnVerify, .sidebarBtnCreate, .sidebarBtnAbout, .sidebarBtnSettings {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.sidebarBtnTrack:hover, .sidebarBtnVerify:hover, .sidebarBtnCreate:hover, .sidebarBtnAbout:hover, .sidebarBtnSettings:hover {
+  background-color: skyblue;
+}
+.sidebarBtn:active {
+  background-color: skyblue;
+}
+.logout {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: #f00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.logout:hover {
+  background-color: rebeccapurple;
+}
+.content {
+  margin-left: 220px;  
+  padding: 20px;
+}
+.logo {
+    width: 120px;     
+    height: auto;      
+    display: block;
+    margin: 0 auto 20px auto; 
+    position: static; 
+}
