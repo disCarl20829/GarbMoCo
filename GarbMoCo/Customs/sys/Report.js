@@ -2,6 +2,8 @@ function setMarker(lat, lng) {
   return "You are here: " + lat + ", " + lng;
 } //Set marker (Global purpose)
 
+let locked = false; 
+
 function mapOnSet() { //Map Set-up
   var tagumBounds = L.latLngBounds(
     [7.00, 125.50], // southwest
@@ -22,10 +24,9 @@ function mapOnSet() { //Map Set-up
   }).addTo(map);
 
   let marker;
-  let locked = false;
 
   map.on('click', function (e) {
-    if (locked) return; //Do nothing if locked
+    if (locked) return; 
 
     var lat = e.latlng.lat.toFixed(5);
     var lng = e.latlng.lng.toFixed(5);
@@ -45,8 +46,6 @@ function mapOnSet() { //Map Set-up
   });
 
   document.getElementById("locatebtn").addEventListener("click", function () {
-    var userCircle;
-
     map.locate({
       watch: true,
       setView: true,
@@ -85,3 +84,52 @@ function mapOnSet() { //Map Set-up
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const submitBut = document.getElementById("submitReport");
+  const reportField = document.getElementById("reportDetails");
+  const imageProof = document.getElementById("proofImages");
+
+  if (submitBut) {
+    submitBut.addEventListener("click", function () {
+      if (!locked) { 
+        alert("Please lock your location before submitting the report.");
+        return;
+      }
+  if (!reportField.value.trim()) {
+        alert("Please provide detailed information for the report.");
+        reportField.focus(); 
+        return;
+      }
+  if (imageProof.files.length === 0) {
+        alert("Please upload at least one image as proof.");
+        imageProof.focus(); 
+        return;
+      }
+      alert("Thank you for submitting a report :)");
+      window.location.href = "Home.html"; 
+    });
+  }
+
+  const proofInput = document.getElementById("proofImages");
+  if (proofInput) {
+    proofInput.addEventListener("change", function () {
+      const previewContainer = document.getElementById("imagePreview");
+      if (previewContainer) previewContainer.innerHTML = ""; 
+
+      Array.from(proofInput.files).forEach(file => {
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100px";
+            img.style.margin = "5px";
+            previewContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  }
+});
