@@ -1,6 +1,6 @@
 function setMarker(lat, lng) {
   return "You are here: " + lat + ", " + lng;
-} //Set marker (Global purpose)
+}
 
 let locked = false; 
 
