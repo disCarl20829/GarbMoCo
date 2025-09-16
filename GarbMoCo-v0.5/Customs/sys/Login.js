@@ -8,27 +8,33 @@ function showPass() {
   }
 }
 
-function buttonLog() {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
+function loginForm() {
+  let isLogged = false;
 
-  const getPasswordUser = "user123";
-  const getUsernameUser = "User";
+  if (isLogged == false) {
+    let formData = new FormData();
+    formData.append("username", document.getElementById("username").value);
+    formData.append("password", document.getElementById("password").value);
 
-  const getPasswordAdmin = "admin123";
-  const getUsernameAdmin = "Admin";
-
-  if (username === getUsernameUser && password === getPasswordUser) {
-    alert("Logging you in\nWelcome " + getUsernameUser + "!");
-    window.location.href = 'Home.html';
-  } else if (username === getUsernameAdmin && password === getPasswordAdmin) {
-    alert("Logging you in\nWelcome " + getUsernameAdmin + "!");
-    window.location.href = 'Admin.html';
-  } else if (username !== getUsernameUser && username !== getUsernameAdmin) {
-    alert("Invalid Username. Please try again");
-    usernameField.value = "";
+    fetch("Customs/dbase/Login.php", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        if (data.includes("admin")) {
+          window.location.href = "Admin.html";
+          alert("Welcome Admin! :)")
+        } else if (data.includes("user")) {
+          window.location.href = "Home.html";
+          alert("Welcome User! :)")
+        } else {
+          alert(data + " Please try again.");
+        }
+      });
+      isLogged = true;
   } else {
-    alert("Invalid Password. Please try again");
-    passwordField.value = "";
+    alert("You are already logged in.");
   }
 }
