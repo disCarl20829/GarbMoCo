@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="fil">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarbMoCo | Report</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="Customs/des/Logs.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="Customs/sys/Logs.js"></script>
+</head>
+
+<body>
+    <h1>LOGS</h1>
+
+    <div style="display: flex; gap: 2rem;">
+        <div style="flex: 1;">
+            <div id="map" style="height: 400px; width: 100%;"></div>
+        </div>
+
+        <h2>Log Entries</h2>
+        <div id="logContainer"></div>
+    </div>
+
+    <script>loadLogs();</script>
+</body>
+
+</html>

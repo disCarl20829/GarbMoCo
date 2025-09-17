@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Log Cards with Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<style>
+    body { font-family: Arial; margin: 20px; }
+    #logContainer {
+        height: 500px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    .logCard {
+        border: 1px solid #888;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .logInfo {
+        flex: 1;
+    }
+    .logInfo div { margin-bottom: 5px; }
+    .miniMap {
+        width: 200px;
+        height: 150px;
+        border: 1px solid #ccc;
+    }
+    input, button { margin: 5px 0; padding: 5px; }
+</style>
+</head>
+<body>
+
+<h1>Scrollable Log Cards</h1>
+
+<label>Name:</label><br>
+<input type="text" id="nameInput" placeholder="Enter name"><br>
+
+<label>Date:</label><br>
+<input type="date" id="dateInput"><br>
+
+<button onclick="addLog()">Add Entry at Map Click</button>
+<p>Click on the main map to select location for this entry.</p>
+
+<div id="mainMap" style="height: 400px;"></div>
+
+<h2>Log Entries</h2>
+<div id="logContainer"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+let logs = [];
+let logId = 1; // auto-increment ID
+
+// Initialize main map
+let mainMap = L.map('mainMap').setView([7.4476, 125.8073], 10);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © OpenStreetMap contributors'
+}).addTo(mainMap);
+
+let selectedLat = null;
+let selectedLon = null;
+
+// Select location on main map
+mainMap.on('click', function(e) {
+    selectedLat = e.latlng.lat;
+    selectedLon = e.latlng.lng;
+    alert(`Location selected at Lat: ${selectedLat.toFixed(6)}, Lon: ${selectedLon.toFixed(6)}`);
+});
+
+// Add log entry
+function addLog() {
+    const name = document.getElementById('nameInput').value.trim();
+    const date = document.getElementById('dateInput').value;
+
+    if (!name || !date || selectedLat === null || selectedLon === null) {
+        alert("Please enter Name, Date, and click on the map!");
+        return;
+    }
+
+    const id = logId++;
+    const logEntry = { id, name, date, lat: selectedLat, lon: selectedLon };
+    logs.push(logEntry);
+
+    // Create card
+    const card = document.createElement('div');
+    card.className = 'logCard';
+
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'logInfo';
+    infoDiv.innerHTML = `<div><b>ID:</b> ${id}</div>
+                         <div><b>Name:</b> ${name}</div>
+                         <div><b>Date:</b> ${date}</div>`;
+    
+    const mapDiv = document.createElement('div');
+    mapDiv.className = 'miniMap';
+    mapDiv.id = `miniMap${id}`;
+    
+    card.appendChild(infoDiv);
+    card.appendChild(mapDiv);
+
+    document.getElementById('logContainer').appendChild(card);
+
+    // Initialize mini map for this card
+    let miniMap = L.map(mapDiv.id, { zoomControl: false, attributionControl: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(miniMap);
+    miniMap.setView([selectedLat, selectedLon], 13);
+    L.marker([selectedLat, selectedLon]).addTo(miniMap);
+
+    // Reset inputs
+    document.getElementById('nameInput').value = '';
+    document.getElementById('dateInput').value = '';
+    selectedLat = null;
+    selectedLon = null;
+}
+</script>
+
+</body>
+</html>

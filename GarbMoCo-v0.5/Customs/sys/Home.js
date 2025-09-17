@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
       alert("Click OK to continue logging out :)");
-      window.location.href = "login.html"; 
+      fetch("Customs/dbase/LogOut.php", {
+        method: "POST"
+      })
+      window.location.href = "Login.html"; 
     });
   }
 });
