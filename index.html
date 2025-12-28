@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="fil">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarbMoCo | Log In</title>
+    <link rel="stylesheet" href="Customs/des/Login.CSS">    
+    <script src="Customs/sys/Login.js" defer></script>
+    <script src="Customs/sys/Management.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1 class="title">
+            <span class="line1">Welcome</span>
+            <span class="line2">to</span>
+            <span class="line3">
+                GarbM 
+                <img src="Customs/des/res/logonMO.png" style="width: 1em; height: 1em; vertical-align: middle;">
+                Co
+            </span>
+        </h1>
+        <h2>Advanced Prototype for Garbage Monitoring and Collection on Solid Waste</h2>
+    </div>
+
+    <div class="login-container">
+        <form onsubmit="loginForm(); return false;" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" id="username" placeholder=" " required>
+                <label for="username">Please enter your username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder=" " required>
+                <label for="password">Please enter your password</label>
+            </div>
+
+            <div class="showpass">
+                <button onclick="showPass()" type="button">Show Password</button>
+            </div>
+
+            <div>
+                <button type="submit" value="login" class="iniButton">Log In</button>
+            </div>
+
+            <div class="signup">
+                <p>Don't have an account? <a href="Management.html" onclick="addAdmin(false)">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

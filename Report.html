@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+
+<html lang="fil">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarbMoCo | Report</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="Customs/des/Report.css">
+    <link rel="styesheet" href="Customs/des/styleMain.CSS">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="Customs/sys/Report.js"></script>
+    <script src="Customs/sys/CatchUser.js"></script>
+</head>
+
+<body>
+    <h1>REPORT</h1>
+
+    <form onsubmit="reportForm(event); return false;">
+
+        <div>
+            <div>
+                <input type="text" id="user_id" placeholder="Fetching User ID..." disabled>
+                <input type="text" id="user_name" placeholder="Fetching Username..." disabled>
+                <input type="text" id="user_contact" placeholder="Fetching Mobile Number..." disabled>
+            </div>
+
+            <div id="step1" class="frame active">
+                <h2> Step 1 </h2>
+
+                <div style="flex: 1;">
+                    <p id="location" class="bleach">Interact with the map!</p>
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                </div>
+
+                <div></div>
+
+                <div>
+                    <div>
+                        <button id="locatebtn" type="button">Locate Me</button>
+                        <button id="locationbtn" type="button">Lock location</button>
+                    </div>
+
+                    <div>
+                        <label for="reportDetails" class="bleach">Report Details:</label>
+                        <input type="text" id="place" placeholder="Determine Location">
+                    </div>
+                </div>
+
+                <h3>Garbage Type <a>(RA 9003)</a></h3>
+                <div id="reportType"></div>
+                
+                <h3>Garbage Status</h3>
+                <select id="garbage-status">
+                    <option value="" disabled selected>Select Status</option>
+                </select>
+
+                <div>
+                    <div>
+                        <label for="proofImages" class="bleach">Insert photographical evidence</label>
+                        <input type="file" id="images" name="images[]" accept="image/*" multiple class="bleach">
+                    </div>
+
+                    <div>
+                        <div id="imagePreview" class="bleach"></div>
+                    </div>
+
+                    <div>
+                        <label for="proofVideo" class="bleach">Insert videographical evidence</label>
+                        <input type="file" id="video" name="video" accept="video/*" multiple class="bleach">
+                    </div>
+
+                    <div>
+                        <textarea id="reportDetails" placeholder="Additional Details is required to submit report."
+                            rows="5" cols="30"></textarea>
+                    </div>
+                </div>
+
+                <button id="button" onclick="nextStep(2)" type="button">Next</button>
+            </div>
+        </div>
+
+        <div id="step2" class="frame">
+            <h2> Step 2 </h2>
+
+            <div>
+                <div>
+                    <input type="text" id="otpInput" placeholder="Enter OTP" maxlength="6" accept="image/*" disabled>
+                    <button id="otp" onclick="requestCode()" type="button">Send OTP</button>
+                    <p class="otp-status">To Verify your info, an OTP will be sent</p>
+                </div>
+
+                <div>
+                    <div>
+                        <input type="checkbox" name="agree1" id="agree1">
+                        <label for="agree1">I agree that false reports will result in charges | R.A. 10175</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="agree2" id="agree2">
+                        <label for="agree2">I agree that personal information will be revealed to administrators</label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button id="button" onclick="prevStep(1)" type="button">Back</button>
+                <button id="button" onclick="nextStep(3)" type="button">Next</button>
+            </div>
+        </div>
+
+        <div id="step3" class="frame">
+            <h2> Step 3 </h2>
+
+            <div>
+                <p>Review your report details before submitting:</p>
+            </div>
+
+            <div>
+                <button id="button" onclick="prevStep(1)" type="button">Back</button>
+                <button id="button" type="submit">Submit</button>
+            </div>
+        </div>
+
+        <div id="loading" class="login-container" style="display: none;">
+            <div class="spinner"></div>
+            <p>Sending Report, Please Wait...</p>
+        </div>
+
+        <div id="completed" class="login-container" style="display: none;">
+            <p>Report Successfull!</p>
+        </div>
+    </form>
+
+    <script>getUser();</script>
+    <script>mapOnSet();</script>
+</body>
+
+</html>

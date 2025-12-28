@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fil">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GarbMoCo | Logs</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="Customs/des/Logs.css" />
+    <script src="Customs/sys/About.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="Customs/sys/Logs.js" defer></script>
+        <script src="Customs/sys/About.js"></script>
+</head>
+
+<body>
+
+  <h1>LOGS</h1>
+
+  <div class="top-area">
+    <div id="mainmap"></div>
+
+    <div class="logInfoMain" id="logInfoMain">
+      <h2>Selected Log</h2>
+      <div><b>Log ID:</b> <span id="logId">—</span></div>
+      <div><b>User ID:</b> <span id="userId">—</span></div>
+      <div><b>Type:</b> <span id="type">—</span></div>
+      <div><b>Location:</b> <span id="location">—</span></div>
+      <div><b>Latitude:</b> <span id="lat">—</span></div>
+      <div><b>Longitude:</b> <span id="lng">—</span></div>
+      <div><b>Description:</b> <span id="desc">—</span></div>
+      <div><b>Timestamp:</b> <span id="timestamp">—</span></div>
+      <div><b>Collected:</b> <span id="collected">—</span></div>
+      <div><b>Misinformation Agreement:</b> <span id="agree1">—</span></div>
+      <div><b>User Data Agreement:</b> <span id="agree2">—</span></div>
+
+      <!-- Mark as Collected button will be appended here dynamically -->
+      <div id="collectBtnContainer"></div>
+
+      <div class="log-images" id="logImages"></div>
+      <div class="log-videos" id="logVideos"></div>
+    </div>
+  </div>
+
+  <div class="bottom-area">
+    <h2>Log Entries</h2>
+
+    <div id="filters" style="margin-bottom: 12px;">
+      <label for="typeFilter">Filter by:</label>
+      <select id="typeFilter" name="typeFilter" onchange="handleTypeChange()">
+        <option value="all">All</option>
+        <option value="Collected">Collected</option>
+        <option value="Uncollected">Uncollected</option>
+        <option value="ID">ID</option>
+      </select>
+
+      <div id="idFilterContainer" style="display:none; margin-left:8px; display:inline-block;">
+        <label for="idFilter">Enter ID:</label>
+        <input type="text" id="idFilter" name="idFilter" placeholder="e.g. 13" style="width:80px; padding:2px 5px; margin:0 8px;" />
+      </div>
+
+      <label for="dateFilter" style="margin-left:8px;">Date:</label>
+      <input type="date" id="dateFilter" onchange="applyFilters()" />
+
+      <button id="searchBtn" type="button" style="margin-left:8px;">Search</button>
+      <button id="resetBtn" type="button" style="margin-left:8px;">Reset Filters</button>
+    </div>
+
+    <div id="logContainer"></div>
+  </div>
+
+  <div id="imageViewer" onclick="closeViewer()">
+    <img id="viewerImg" src="" alt="Log image" />
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="fil">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarbMoCo | Create</title>
+    <link rel="stylesheet" href="Customs/des/Login.CSS">
+    <link rel="stylesheet" href="Customs/des/styleMain.CSS">
+    <script src="Customs/sys/Management.js"></script>
+    <script src="CUstoms/sys/GlobalUse.js"></script>
+</head>
+
+<body>
+    <div>
+        <!--<div class="blurbg"></div>-->
+        <h1 class="title">
+            <span class="line1">Welcome</span>
+            <span class="line2">to</span>
+            <span class="line3">
+                GarbM 
+                <img src="Customs/des/res/logonMO.png" style="width: 1em; height: 1em; vertical-align: middle;">
+                Co
+            </span>
+        </h1>
+        <h2>Advanced Prototype for Garbage Monitoring and Collection on Solid Waste</h2>
+    </div>
+
+    <div class="login-container" id="login">
+        <form onsubmit="createAccount(event); return false;" method="POST">
+            <div id="login-form">
+                <div class="input-group">
+                    <select name="role" id="role" required>
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="user">User</option>
+                    </select>
+                    <label for="role">Select Role</label>
+                </div>
+
+                <div id="special" class="input-group"></div>
+
+                <div class="input-group">
+                    <input type="text" placeholder=" " name="username" id="username" required disabled>
+                    <label for="username">Create Username</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" placeholder=" " name="password" id="password" required disabled>
+                    <label for="password">Create Password</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" placeholder=" " name="c-password" id="c-password" required disabled>
+                    <label for="c-password">Confirm Password</label>
+                </div>
+
+                <div class="showpass">
+                    <button onclick="showPass()" type="button">Show Password</button>
+                </div>
+
+                <!--For admin-->
+                <!--If madayon ni, i-add ang name sa barangay/school, future carlos-->
+                <!--
+                <div>
+                    <label for="username">Please Select The Following</label><br>
+                    <select` name="role" id="role" required>
+                        <option value="" disabled selected>Select Organization</option>
+                        <option value="admin">Barangay</option>
+                        <option value="user">School</option>
+                    </select>
+                </div>-->
+
+
+                <div class="input-group">
+                    <button type="submit" value="login" class="iniButton">Create Account</button>
+                </div>
+
+                <div>
+                     <p>Already have an account? <a href="index.html">Log In</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="loading" class="login-container" style="display: none;">
+        <div class="spinner"></div>
+        <p>Creating your account, please wait...</p>
+    </div>
+
+    <div id="completed" class="login-container" style="display: none;">
+        <p>Account has been created!</p>
+    </div>  
+</body>
+
+</html>

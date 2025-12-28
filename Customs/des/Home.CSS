@@ -1,0 +1,229 @@
+body {
+    background-image: url('res/NewCityHall.jpg');
+  background-size: 1600px auto;    
+  background-position: 0% 20%; 
+  background-repeat: no-repeat; 
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 5rem;
+    margin-top: 100px;
+    margin-bottom: 0.5px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, "Bernard MT Condensed Narrow Bold";
+    font-weight: bold;
+    letter-spacing: 2.5px; 
+    color: #043d1d;
+    transition: color 0.3s, transform 0.3s;
+}
+
+h1:hover {
+  color: rgb(204, 255, 230); 
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+h2 {
+   text-align: center;
+  color: black;
+  margin-top: 8px;    
+  font-size: 1.5rem;
+  transition: color 0.3s, transform 0.3s;
+   
+ 
+}
+h2:hover {
+  color: rgb(195, 212, 204); 
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  background: rgba(6, 112, 52, 0.8);
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 2000;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.hamburger:hover {
+  background: rgb(8, 140, 80);
+  transform: scale(1.05);
+}
+
+
+.sidebar.hidden {
+  width: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+
+.sidebar {
+  transition: width 0.3s;
+  height: 100vh;
+  width: 260px;
+  padding-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(6, 112, 52, 0.5);
+  padding-top: 20px;
+  backdrop-filter: blur(8px);         
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2); 
+  z-index: 999;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebarBtn {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition:background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.sidebarBtn:focus {
+  outline: none;
+}
+
+.sidebarBtn:hover {
+  background-color: #08c;
+  transform: translateY(-3px); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+
+.content {
+  transition: margin-left 0.3s;
+  margin-left: 260px;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.logout {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  background-color: rgb(6, 75, 17);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.logout:hover {
+  background-color: rgb(49, 63, 97); 
+  transform: translateY(-3px); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+.logo {
+    width: 120px;     
+    height: 120px;      
+    display: block;
+    margin: 0 auto 20px auto; 
+    border-radius: 50%;
+    object-fit: contain;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;  
+     
+}
+.logo:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+    cursor: pointer;  
+}
+ 
+@media (max-width: 1500px) {
+    h1.title {
+        font-size: 4rem !important;
+        margin-left: 120px;
+    }
+
+    h1.title .line1 {
+        font-size: 2.7rem;
+    }
+
+    h1.title .line2 {
+        font-size: 2.4rem;
+    }
+
+    h1.title .line3 {
+        font-size: 3.2rem;
+    }
+
+    h2 {
+        margin-left: 120px;
+        font-size: 1.3rem;
+    }
+}
+ 
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .sidebar.hidden {
+        width: 0 !important;
+    }
+
+    .content {
+        margin-left: 0 !important;
+        text-align: center;
+    }
+
+    h1.title {
+        font-size: 2.5rem !important;
+        margin-left: 0 !important;
+    }
+
+    h2 {
+        margin-left: 0 !important;
+        font-size: 1.2rem;
+    }
+}
+
+ 
+@media (max-width: 480px) {
+    h1.title {
+        font-size: 2rem !important;
+    }
+
+    h1.title .line1 {
+        font-size: 1.6rem;
+    }
+
+    h1.title .line2 {
+        font-size: 1.4rem;
+    }
+
+    h1.title .line3 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+}

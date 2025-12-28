@@ -1,0 +1,195 @@
+* {
+  box-sizing: border-box;
+}
+
+ 
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  color: #222;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('res/NewCityHall.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+}
+ 
+.backBtn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  background: url('Customs/des/res/back.png') no-repeat center;
+  background-size: contain;
+  z-index: 1000;
+}
+
+ 
+h1 {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 3rem;
+  color: #043d1d;
+}
+
+ 
+.top-area,
+.bottom-area {
+  background: rgba(74, 120, 54, 0.95);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+ 
+.top-area {
+  display: flex;
+  gap: 16px;
+}
+
+ 
+#mainmap {
+  height: 425px;
+  width: 60%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #a1ddaa;
+}
+
+ 
+.logInfoMain {
+  flex: 1;
+  background: hsl(120, 48%, 76%);
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logInfoMain h2 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.logInfoMain div {
+  margin: 6px 0;
+  font-size: 14px;
+}
+ 
+.log-images {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.log-images img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+ 
+#logContainer {
+  cursor: pointer;
+  height: 500px;
+  overflow-y: scroll;
+  border: 1px solid #bbd8b9;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  background: #bdd8bd;
+  border-radius: 8px;
+}
+
+ 
+.logCard {
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: #ace1b5;
+}
+
+.logCard:hover {
+  background: #9ac984;
+}
+
+ 
+.miniMap {
+  width: 200px;
+  height: 150px;
+  border: 1px solid #ccc;
+}
+
+ 
+.logImages {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.logImages img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+ 
+.log-videos video {
+  display: block;
+  margin: 8px auto;
+  max-width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+ 
+#imageViewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#imageViewer img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  cursor: zoom-out;
+}
+
+ 
+@media (max-width: 900px) {
+  .top-area {
+    flex-direction: column;
+  }
+
+  #mainmap,
+  .logInfoMain {
+    width: 100%;
+  }
+}
