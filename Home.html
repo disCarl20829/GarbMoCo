@@ -6,25 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GarbMoCo | Home</title>
+    <link rel="stylesheet" href="Customs/des/styleMain.CSS">
     <link rel="stylesheet" href="Customs/des/Home.CSS">
-     
+    <script src="Customs/sys/session_check.js"></script>
     <script src="Customs/sys/Home.js"> </script>
 </head>
 
 <body>
-   
+
     <button class="hamburger" onclick="toggleSidebar()">☰</button>
     <div class="content">
-         <h1 class="title">
+        <h1 class="title">
             <span class="line1">Welcome</span>
             <span class="line2">to</span>
             <span class="line3">
-                GarbM 
+                GarbM
                 <img src="Customs/des/res/logonMO.png" style="width: 1em; height: 1em; vertical-align: middle;">
                 Co
             </span>
         </h1>
-<h2>Advanced Prototype for Garbage Monitoring and Collection on Solid Waste</h2>
+        <h2>Advanced Prototype for Garbage Monitoring and Collection on Solid Waste</h2>
     </div>
 
     <div class="sidebar">
@@ -37,6 +38,8 @@
             <li><button class="logout">Log Out</button></li>
         </ul>
     </div>
+
+    <div id="notification-container"></div>
 </body>
 
 </html>

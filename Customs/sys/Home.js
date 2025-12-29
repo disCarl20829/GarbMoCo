@@ -1,12 +1,30 @@
+function showNotification(message, type = "info", duration = 3000) {
+    const container = document.getElementById("notification-container");
+
+    const notif = document.createElement("div");
+    notif.className = `notification ${type}`;
+    notif.textContent = message;
+    container.appendChild(notif);
+
+    setTimeout(() => notif.classList.add("show"), 50);
+
+    setTimeout(() => {
+        notif.classList.remove("show");
+        setTimeout(() => notif.remove(), 500);
+    }, duration);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const logoutButton = document.querySelector(".logout");
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
-      alert("Click OK to continue logging out :)");
+      showNotification("Successfully logged out!", "success")
       fetch("Customs/dbase/LogOut.php", {
         method: "POST"
       });
-      window.location.href = "index.html"; 
+      setTimeout(() => {
+        window.location.href = "index.html"; 
+      }, 5000)
     });
   }
 

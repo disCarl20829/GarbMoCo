@@ -5,13 +5,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GarbMoCo | Logs</title>
-
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="Customs/des/styleMain.CSS">
   <link rel="stylesheet" href="Customs/des/Logs.css" />
-    <script src="Customs/sys/About.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="Customs/sys/session_check.js"></script>
   <script src="Customs/sys/Logs.js" defer></script>
-        <script src="Customs/sys/About.js"></script>
 </head>
 
 <body>
@@ -23,17 +22,16 @@
 
     <div class="logInfoMain" id="logInfoMain">
       <h2>Selected Log</h2>
-      <div><b>Log ID:</b> <span id="logId">—</span></div>
-      <div><b>User ID:</b> <span id="userId">—</span></div>
-      <div><b>Type:</b> <span id="type">—</span></div>
+      <div><b>Report ID:</b> <span id="report_id">—</span></div>
+      <div><b>User ID:</b> <span id="user_id">—</span></div>
+      <div><b>Garbage Type:</b> <span id="garbage_type">—</span></div>
+      <div><b>Garbage Status:</b> <span id="garbage_status">—</span></div>
       <div><b>Location:</b> <span id="location">—</span></div>
       <div><b>Latitude:</b> <span id="lat">—</span></div>
       <div><b>Longitude:</b> <span id="lng">—</span></div>
       <div><b>Description:</b> <span id="desc">—</span></div>
       <div><b>Timestamp:</b> <span id="timestamp">—</span></div>
-      <div><b>Collected:</b> <span id="collected">—</span></div>
-      <div><b>Misinformation Agreement:</b> <span id="agree1">—</span></div>
-      <div><b>User Data Agreement:</b> <span id="agree2">—</span></div>
+      <div><b>Mark as Collected:</b> <span id="collected">—</span></div>
 
       <!-- Mark as Collected button will be appended here dynamically -->
       <div id="collectBtnContainer"></div>
@@ -52,12 +50,13 @@
         <option value="all">All</option>
         <option value="Collected">Collected</option>
         <option value="Uncollected">Uncollected</option>
-        <option value="ID">ID</option>
+        <option value="Report ID">ID</option>
       </select>
 
       <div id="idFilterContainer" style="display:none; margin-left:8px; display:inline-block;">
-        <label for="idFilter">Enter ID:</label>
-        <input type="text" id="idFilter" name="idFilter" placeholder="e.g. 13" style="width:80px; padding:2px 5px; margin:0 8px;" />
+        <label for="idFilter">Enter Report ID:</label>
+        <input type="text" id="idFilter" name="idFilter" placeholder="e.g. 13"
+          style="width:80px; padding:2px 5px; margin:0 8px;" />
       </div>
 
       <label for="dateFilter" style="margin-left:8px;">Date:</label>
@@ -72,6 +71,18 @@
 
   <div id="imageViewer" onclick="closeViewer()">
     <img id="viewerImg" src="" alt="Log image" />
+  </div>
+
+  <div id="notification-container"></div>
+
+  <div id="confirm-container" class="hidden" style="display:none">
+    <div class="confirm-box">
+      <p id="confirm-message">Are you sure?</p>
+      <div class="confirm-buttons">
+        <button id="confirm-yes">Yes</button>
+        <button id="confirm-no">No</button>
+      </div>
+    </div>
   </div>
 </body>
 

@@ -39,7 +39,7 @@ $user_id = $conn->insert_id;
 $idTarget = "id/";
 
 if (!empty($_FILES['proofId']['name'])) {
-    $idName = $user_id . "_" . "platformID";
+    $idName = $user_id . "_" . "platformID" . "_" . basename($_FILES['proofId']['name']);
     $idTarget = $idTarget . $idName;
 
     if (move_uploaded_file($_FILES['proofId']['tmp_name'], $idTarget)) {

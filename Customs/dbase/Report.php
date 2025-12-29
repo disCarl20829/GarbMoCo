@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 include __DIR__ . '/db_connect.php';
 
-if (!isset($_SESSION['user_id']) || $_SESSION["isLogged"] = false) {
+if (empty($_SESSION['user_id']) || empty($_SESSION['isLogged'])) {
     http_response_code(401);
     echo json_encode(["status" => "error", "message" => "User not logged in"]);
     exit;
@@ -15,7 +15,7 @@ $garbage_type = $_POST['garbage_type'] ?? '';
 $garbage_status = $_POST['garbage_status'] ?? '';
 $location = $_POST['location'] ?? '';
 $latitude = floatval($_POST['latitude'] ?? 0);
-$logitude = floatval($_POST['longitude'] ?? 0);
+$longitude = floatval($_POST['longitude'] ?? 0);
 $description = $_POST['description'] ?? '';
 
 $uploadedPaths = [];
@@ -52,7 +52,7 @@ $imagePaths = json_encode($uploadedPaths);
 $videoPath = $uploadedVideo;
 
 $reportStmt = $conn->prepare("INSERT INTO reports (user_id, garbage_type, garbage_status, location, latitude, longitude, description, is_collected) VALUES (?, ?, ?, ?, ?, ?, ?, 0)");
-$reportStmt->bind_param("iiisdds", $user_id, $garbage_type, $garbage_status, $location, $latitude, $logitude, $description);
+$reportStmt->bind_param("iiisdds", $user_id, $garbage_type, $garbage_status, $location, $latitude, $longitude, $description);
 
 if (!$reportStmt->execute()) {
     http_response_code(500);
@@ -72,8 +72,8 @@ if (!$imgStmt->execute()) {
 }
 
 if ($videoPath) {
-    $vidStmt = $conn->prepare("INSERT INTO report_media (report_id, media_type, file_path) VALUES (?, ?, ?)");
-    $vidStmt->bind_param("iss", $report_id, 'video', $videoPath);
+    $vidStmt = $conn->prepare("INSERT INTO report_media (report_id, media_type, file_path) VALUES (?, 'video', ?)");
+    $vidStmt->bind_param("is", $report_id, $videoPath);
 
     if (!$vidStmt->execute()) {
         http_response_code(500);
@@ -91,5 +91,5 @@ if (!$verificationStmt->execute()) {
     exit;
 }
 
-echo json_encode(["status" => "success", "message" => "Report submitted successfully."]);
+echo json_encode(["status" => "success", "message" => "Report submitted successfully.", "report_id" => $report_id]);
 ?>

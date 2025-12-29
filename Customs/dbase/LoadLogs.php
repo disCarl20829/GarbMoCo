@@ -1,15 +1,18 @@
 <?php
 session_start();
-include __DIR__ . '/db_connect.php';
-
 header('Content-Type: application/json; charset=utf-8');
+
+include __DIR__ . '/db_connect.php';
 
 $reports = [];
 
-$sql = "SELECT id, user_id, type, location, latitude, longitude, image_path, video_path, description, isCollected, isAgree1, isAgree2, created_at
-        FROM reports ORDER BY id DESC";
-
-$result = $conn->query($sql);
+$stmt = "SELECT t1.*, t2.user_phone, t3.media_type, t3.file_path AS image_path, t4.file_path AS video_path 
+         FROM reports AS t1
+         LEFT JOIN reporter AS t2 ON t1.user_id = t2.user_id
+         LEFT JOIN report_media AS t3 ON t1.report_id = t3.report_id AND t3.media_type = 'image'
+         LEFT JOIN report_media AS t4 ON t1.report_id = t4.report_id AND t4.media_type = 'video'
+         ORDER BY t1.report_id DESC";
+$result = $conn->query($stmt);
 
 $imageUploads = '/Customs/dbase/';
 $videoUploads = '/Customs/dbase/';
@@ -27,25 +30,26 @@ function normalizePaths($paths)
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-
         $images = normalizePaths($row['image_path']);
         $videos = normalizePaths($row['video_path']);
 
         $images = array_map(fn($img) => str_replace('\\', '/', trim($img)), $images);
         $videos = array_map(fn($vid) => str_replace('\\', '/', trim($vid)), $videos);
 
-        $images = array_map(fn($img) => (strpos($img, 'http') !== 0 && strpos($img, '/') !== 0) ? $imageUploads . ltrim($img, '/') : $img, $images);
+        $images = array_map(function ($img) use ($imageUploads) {
+            if (strpos($img, 'http') !== 0) {
+                $img = rtrim($imageUploads, '/') . '/' . ltrim($img, '/\\');
+                $img = ltrim($img, '/');
+            }
+            return $img;
+        }, $images);
+
         $videos = array_map(function ($vid) use ($videoUploads) {
-            if (strpos($vid, 'http') !== 0 && strpos($vid, '/') !== 0) {
-                $vid = rtrim($videoUploads, '/') . '/' . ltrim($vid, '/');
+            if (strpos($vid, 'http') !== 0) {
+                $vid = rtrim($videoUploads, '/') . '/' . ltrim($vid, '/\\');
             }
             return $vid;
         }, $videos);
-
-        $videos = array_map(function($vid) {
-            return str_replace('//', '/', $vid);
-        }, $videos);
-
 
         $row['images'] = $images;
         $row['videos'] = $videos;

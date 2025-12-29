@@ -8,9 +8,10 @@
     <title>GarbMoCo | Report</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="Customs/des/Report.css">
-    <link rel="styesheet" href="Customs/des/styleMain.CSS">
+    <link rel="stylesheet" href="Customs/des/styleMain.CSS">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="Customs/sys/Report.js"></script>
+    <script src="Customs/sys/session_check.js"></script>
     <script src="Customs/sys/CatchUser.js"></script>
 </head>
 
@@ -132,6 +133,8 @@
             <p>Report Successfull!</p>
         </div>
     </form>
+
+    <div id="notification-container"></div>
 
     <script>getUser();</script>
     <script>mapOnSet();</script>

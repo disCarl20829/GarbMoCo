@@ -1,3 +1,30 @@
+function showNotification(message, type = "info", duration = 3000) {
+  const container = document.getElementById("notification-container");
+
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.textContent = message;
+  container.appendChild(notif);
+
+  setTimeout(() => notif.classList.add("show"), 50);
+
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 500);
+  }, duration);
+}
+
+async function addAdmin(con) {
+  if (con === true) {
+    const optionSelector = document.getElementById("role");
+    const option = document.createElement("option");
+    option.textContent = "Admin";
+    option.value = "admin";
+
+    optionSelector.appendChild(option);
+  }
+}
+
 if (window.location.pathname.endsWith("Management.html")) {
   document.addEventListener("DOMContentLoaded", function () {
     const optionSelector = document.getElementById("role");
@@ -26,6 +53,24 @@ if (window.location.pathname.endsWith("Management.html")) {
         input.required = true;
         specialGroup.appendChild(input);
 
+        const proofWrapper = document.createElement("div");
+        proofWrapper.id = "proofIdWrapper";
+        proofWrapper.classList.add("input-group");
+        proofWrapper.style.marginTop = "10px";
+
+        const proofLabel = document.createElement("label");
+        proofLabel.htmlFor = "proofId";
+        proofLabel.textContent = "Please insert a Valid ID for verification purposes";
+        proofWrapper.appendChild(proofLabel);
+
+        const proofInput = document.createElement("input");
+        proofInput.type = "file";
+        proofInput.name = "proofId";
+        proofInput.id = "proofId";
+        proofInput.accept = "image/*";
+        proofInput.required = true;
+        proofWrapper.appendChild(proofInput);
+        specialGroup.appendChild(proofWrapper);
       } else if (selectedRole === "user") {
         const label = document.createElement("label");
         label.htmlFor = "mobilenum";
@@ -95,8 +140,6 @@ async function createAccount(e) {
   document.getElementById("loading").style.display = "block";
 
   setTimeout(async () => {
-    let roleValue = document.getElementById('role').value.toLowerCase() === "admin" ? 2 : 1;
-
     let formData = new FormData();
     formData.append("user_name", document.getElementById('username').value);
     formData.append("user_password", document.getElementById('password').value);
@@ -125,8 +168,10 @@ async function createAccount(e) {
       document.getElementById("loading").style.display = "none";
       document.getElementById("completed").style.display = "block";
 
-      alert(data.message);
-      window.location.href = "index.html";
+      showNotification(data.message, data.status);
+      setTimeout(async () => {
+        window.location.href = "index.html";
+      }, 5000)
     } catch (err) {
       console.error("Error:", err);
     }
@@ -137,20 +182,19 @@ function checkInput() {
   const username = document.getElementById("username").value;
   const pass = document.getElementById("password").value;
   const confPass = document.getElementById("c-password").value;
-  const role = document.getElementById("role").value;
 
   if (username.length < 5) {
-    alert("Username must be at least 5 characters long.");
+    showNotification("Username must be at least 5 characters long.", "warning");
     return false;
   }
 
   if (pass != confPass) {
-    alert("Password does not match");
+    showNotification("Password does not match.", "warning");
     return false;
   }
 
   if (pass.length < 8) {
-    alert("Password must contain at least 8 characters")
+    showNotification("Password must contain at least 5 characters.", "warning");
     return false;
   }
 }

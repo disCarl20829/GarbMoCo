@@ -1,3 +1,20 @@
+function showNotification(message, type = "info", duration = 3000) {
+  const container = document.getElementById("notification-container");
+  container.innerHTML = "";
+
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.textContent = message;
+  container.appendChild(notif);
+
+  setTimeout(() => notif.classList.add("show"), 50);
+
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 500);
+  }, duration);
+}
+
 function showPass() {
   var password = document.getElementById("password");
 
@@ -11,7 +28,6 @@ function showPass() {
 }
 
 async function loginForm() {
-
   let formData = new FormData();
   formData.append("user_name", document.getElementById("username").value);
   formData.append("user_password", document.getElementById("password").value);
@@ -27,13 +43,15 @@ async function loginForm() {
     }
 
     const data = await response.json();
-    alert(data.message);
+    showNotification(data.message, "success");
 
-    if (data.user_role == "Admin") {
-      window.location.href = "Admin.html";
-    } else if (data.user_role == "User") {
-      window.location.href = "Home.html";
-    }
+    setTimeout(() => {
+      if (data.user_role == "Admin") {
+        window.location.href = "Admin.html";
+      } else if (data.user_role == "User") {
+        window.location.href = "Home.html";
+      }
+    }, 5000)
   } catch (err) {
     console.error("Error: ", err)
   }

@@ -5,6 +5,8 @@ let isMarker = false;
 let otpSent = false;
 let otpReceived = false;
 
+const MAX_VIDEO_SIZE = 35 * 1024 * 1024;
+
 const statusList = [
   "Uncollected on Schedule",
   "Overflowing Bin",
@@ -91,6 +93,22 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+function showNotification(message, type = "info", duration = 3000) {
+    const container = document.getElementById("notification-container");
+
+    const notif = document.createElement("div");
+    notif.className = `notification ${type}`;
+    notif.textContent = message;
+    container.appendChild(notif);
+
+    setTimeout(() => notif.classList.add("show"), 50);
+
+    setTimeout(() => {
+        notif.classList.remove("show");
+        setTimeout(() => notif.remove(), 500);
+    }, duration);
+}
 
 function nextStep(step) {
   console.log('nextStep requested ->', step);
@@ -225,11 +243,11 @@ function mapOnSet() { //Map Set-up
     if (locked == false) {
       locked = true;
       document.getElementById("locationbtn").innerText = "Unlock location";
-      alert("Location has been locked\nUnlock if necessary");
+      showNotification("Location has been locked\nUnlock if necessary");
     } else {
       locked = false;
       document.getElementById("locationbtn").innerText = "Lock location";
-      alert("Location has been unlocked\nPlease remark location");
+      showNotification("Location has been unlocked\nPlease remark location");
     }
   });
 }
@@ -238,7 +256,7 @@ async function reportForm(e) {
   e.preventDefault();
 
   if (!reportRequirement() || !verificationRequirement()) {
-    alert("Please fill in every required form")
+    showNotification("Please fill in every required form", "warning")
     return false;
   }
 
@@ -246,8 +264,9 @@ async function reportForm(e) {
   document.getElementById("loading").style.display = "block";
 
   let formData = new FormData();
-  formData.append("garbage_type", document.querySelector('input[name=\"reportType\"]:checked').value);
-  formData.append("garbage_status", document.querySelector('select').value);
+  formData.append("garbage_type", garbageTypes[document.querySelector('input[name="reportType"]:checked').value - 1]);
+  formData.append("garbage_status", statusList[document.getElementById("garbage-status").value - 1]);
+  formData.append("user_contact", document.getElementById("user_contact").value.trim());
   formData.append("location", document.getElementById("place").value);
   formData.append("latitude", document.getElementById("location").innerText.split(",")[0].split(":")[1].trim());
   formData.append("longitude", document.getElementById("location").innerText.split(",")[1].split(":")[1].trim());
@@ -259,12 +278,8 @@ async function reportForm(e) {
   }
 
   let video = document.getElementById("video").files;
-  if (video.length > 0) {
-    const selectedFile = video[0];
-    if (selectedFile.type.startsWith("video/")) {
-      formData.append("video", selectedFile);
-    }
-  }
+  const videoFile = video[0];
+  formData.append("video", videoFile);
 
   setTimeout(async () => {
     try {
@@ -278,27 +293,43 @@ async function reportForm(e) {
         throw new Error("Network response was not ok: " + reportResponse.status);
       }
 
-      const mailResponse = await fetch("Customs/api/SendMail.php", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!mailResponse.ok) {
-        throw new Error("Network response was not ok: " + mailResponse.status);
-      }
-
       const reportData = await reportResponse.json();
-      const mailData = await mailResponse.json();
 
       if (reportData.status !== "success") {
-        throw new Error("Report submission failed: " + (reportData.message || "Unknown error"));
+        throw new Error(reportData.message || "Report submission failed");
       }
 
-      alert(reportData.message || "Report submitted successfully.");
+      const mailForm = new FormData();
+      mailForm.append("report_id", reportData.report_id);
+      mailForm.append("user_contact", document.getElementById("user_contact").value.trim());
+      mailForm.append("garbage_type", garbageTypes[document.querySelector('input[name="reportType"]:checked').value - 1]);
+      mailForm.append("garbage_status", statusList[document.getElementById("garbage-status").value - 1]);
+      mailForm.append("location", document.getElementById("place").value);
+      mailForm.append("latitude", document.getElementById("location").innerText.split(",")[0].split(":")[1].trim());
+      mailForm.append("longitude", document.getElementById("location").innerText.split(",")[1].split(":")[1].trim());
+      mailForm.append("description", document.getElementById("reportDetails").value);
+
+      let mailImages = document.getElementById("images").files;
+      for (let i = 0; i < mailImages.length; i++) {
+        mailForm.append("images[]", mailImages[i]);
+      }
+
+      const mailResponse = await fetch("Customs/api/SendMail.php", {
+        method: "POST",
+        body: mailForm,
+      });
+
+      const mailData = await mailResponse.json();
+
       console.log("Mail response:", mailData);
+
       document.getElementById("loading").style.display = "none";
       document.getElementById("completed").style.display = "block";
-      window.location.href = "Home.html";
+      showNotification("Report successful!", "success");
+      
+      setTimeout(async () => {
+        window.location.href = "Home.html";
+      }, 3000)
     } catch (err) {
       console.error("Error in report submission:", err);
     }
@@ -309,6 +340,8 @@ async function requestCode() {
   const otpInput = document.getElementById("otpInput");
   const otpButton = document.getElementById("otp");
 
+  const message = "Your verification code is: "
+
   let number = document.getElementById("user_contact").value.trim();
 
   if (otpSent) {
@@ -316,17 +349,17 @@ async function requestCode() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "same-origin",
-      body: JSON.stringify({ otp: otpInput.value })
+      body: JSON.stringify({ otp: otpInput.value})
     });
 
     const data = await response.json();
 
     if (data.status === "success") {
-      alert("OTP verified ✅");
+      showNotification("OTP successfully verified", "success")
       otpButton.disabled = true;
       otpReceived = true;
     } else {
-      alert(data.message);
+      showNotification(data.message)
     }
     return;
   }
@@ -338,9 +371,9 @@ async function requestCode() {
   try {
     const response = await fetch("Customs/api/SMSCode.php", {
       method: "POST",
-      headers: { "Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       credentials: "same-origin",
-      body: JSON.stringify({ number: number })
+      body: JSON.stringify({ number: number, message: message, isOtp: true }),
     });
 
     if (!response.ok) {
@@ -352,12 +385,12 @@ async function requestCode() {
       throw new Error("Failed to send OTP: " + (data.response || "Unknown error"));
     }
 
-    alert("OTP has been sent to your mobile number. " + data.response.message);
+    showNotification("OTP has been sent. " + data.response.message, "info")
     otpSent = true;
     otpButton.disabled = false;
   } catch (err) {
     console.error("Error fetching user contact:", err);
-    alert("Failed to fetch user contact.");
+    showNotification("Failed to fetch user contact.", "error");
     return;
   }
 }
@@ -368,35 +401,52 @@ function reportRequirement() {
   const reportType = document.querySelector('input[name="reportType"]:checked');
   const reportStatus = document.getElementById("garbage-status").value;
 
+  let video = document.getElementById("video").files;
+
+  if (video.length > 0) {
+    const videoFile = video[0];
+
+    if (videoFile.size > MAX_VIDEO_SIZE) {
+      showNotification("Video must be 35MB or less.", "warning");
+      videoInput.value = "";
+      return;
+    }
+
+    if (!videoFile.type.startsWith("video/")) {
+      showNotification("Invalid video file.", "warning");
+      videoInput.value = "";
+      return;
+    }
+  }
   if (!locationSelected) {
-    alert("Please enter a location on the map.");
+    showNotification("Please enter a location on the map.", "warning")
     return false;
   }
   if (!reportType) {
-    alert("Please select a report type.");
+    showNotification("Please select a report type.", "warning")
     return false;
   }
   if (reportStatus === "") {
-    alert("Please select the garbage status.");
+    showNotification("Please select the garbage status.", "warning")
     return false;
   }
   if (!reportField.value.trim()) {
-    alert("Please provide detailed information for the report.");
+    showNotification("Please provide detailed information for the report.", "warning")
     reportField.focus();
     return false;
   }
   if (imageProof.files.length === 0) {
-    alert("Please upload three images as proof.");
+    showNotification("Please upload three images as proof.", "warning")
     imageProof.focus();
     return false;
   }
   if (imageProof.files.length < 3) {
-    alert("Please upload at least three images as proof.");
+    showNotification("Please upload at least three images as proof.", "warning")
     imageProof.focus();
     return false;
   }
   if (!locked) {
-    alert("Please lock your location before submitting the report.");
+    showNotification("Please lock your location before submitting the report.", "warning")
     return false;
   }
 
@@ -410,15 +460,15 @@ function verificationRequirement() {
   const agreement2 = document.getElementById("agree2").checked;
 
   if (!otpReceived) {
-    alert("Please verify the OTP sent to your mobile number.");
+    showNotification("Please verify the OTP sent to your mobile number.", "warning")
     return false;
   }
   if (otpInput === "") {
-    alert("Please enter the OTP sent to your mobile number.");
+    showNotification("Please enter the OTP sent to your mobile number.", "warning")
     return false;
   }
   if (!agreement1 || !agreement2) {
-    alert("You must agree to the terms and conditions.");
+    showNotification("You must agree to the terms and conditions.", "warning")
     return false;
   }
 
