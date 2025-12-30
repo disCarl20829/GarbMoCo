@@ -4,6 +4,10 @@ header('Content-Type: application/json');
 
 include __DIR__ . '/db_connect.php';
 
+if (isset($_SESSION["user_id"]) && $_SESSION["isLogged"] === true) {
+    echo json_encode(["status" => "success", "message" => "User is already logged"]);
+}
+
 $user_name = $_POST['user_name'];
 $user_password = $_POST['user_password'];
 

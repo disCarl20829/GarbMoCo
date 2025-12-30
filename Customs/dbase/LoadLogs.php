@@ -47,6 +47,7 @@ if ($result && $result->num_rows > 0) {
         $videos = array_map(function ($vid) use ($videoUploads) {
             if (strpos($vid, 'http') !== 0) {
                 $vid = rtrim($videoUploads, '/') . '/' . ltrim($vid, '/\\');
+                $vid = ltrim($vid, '/');
             }
             return $vid;
         }, $videos);

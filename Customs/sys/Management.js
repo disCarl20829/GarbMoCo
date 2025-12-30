@@ -14,14 +14,29 @@ function showNotification(message, type = "info", duration = 3000) {
   }, duration);
 }
 
-async function addAdmin(con) {
-  if (con === true) {
-    const optionSelector = document.getElementById("role");
-    const option = document.createElement("option");
-    option.textContent = "Admin";
-    option.value = "admin";
+async function addAdmin() {
+  try {
+    const response = await fetch("Customs/dbase/GetUser.php", {
+      method: "GET",
+      credentials: "same-origin"
+    });
 
-    optionSelector.appendChild(option);
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+
+    const data = await response.json();
+
+    if (data.info.user_role === "Admin") {
+      const optionSelector = document.getElementById("role");
+      const option = document.createElement("option");
+      option.textContent = "Admin";
+      option.value = "admin";
+
+      optionSelector.appendChild(option);
+    }
+  } catch (err) {
+    console.errror("Error retrieving user info: ", err);
   }
 }
 

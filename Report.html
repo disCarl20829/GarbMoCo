@@ -18,8 +18,7 @@
 <body>
     <h1>REPORT</h1>
 
-    <form onsubmit="reportForm(event); return false;">
-
+    <form id="reportForm">
         <div>
             <div>
                 <input type="text" id="user_id" placeholder="Fetching User ID..." disabled>
@@ -120,7 +119,7 @@
 
             <div>
                 <button id="button" onclick="prevStep(1)" type="button">Back</button>
-                <button id="button" type="submit">Submit</button>
+                <button type="button" onclick="reportForm(event)">Submit Report</button>
             </div>
         </div>
 

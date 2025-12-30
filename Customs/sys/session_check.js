@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await res.json();
 
         if (!data.isLogged) {
-            window.location.href = '/Login.html';
+            window.location.href = 'index.html';
         }
     } catch (err) {
         console.error('Session check failed:', err);
-        window.location.href = '/Login.html';
+        window.location.href = "index.html";
     }
 })

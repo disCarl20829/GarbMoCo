@@ -1,3 +1,29 @@
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const response = await fetch("Customs/dbase/GetUser.php", {
+      method: "GET",
+    });
+
+    if (response.status === 401) {
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+
+    const data = await response.json();
+
+    if (data.info.user_role === "Admin") {
+      window.location.href = "Admin.html";
+    } else {
+      window.location.href = "Home.html";
+    }
+  } catch (err) {
+    console.error("Error retrieving user info: ", err);
+  }
+})
+
 function showNotification(message, type = "info", duration = 3000) {
   const container = document.getElementById("notification-container");
   container.innerHTML = "";

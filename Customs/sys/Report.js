@@ -95,19 +95,19 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function showNotification(message, type = "info", duration = 3000) {
-    const container = document.getElementById("notification-container");
+  const container = document.getElementById("notification-container");
 
-    const notif = document.createElement("div");
-    notif.className = `notification ${type}`;
-    notif.textContent = message;
-    container.appendChild(notif);
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.textContent = message;
+  container.appendChild(notif);
 
-    setTimeout(() => notif.classList.add("show"), 50);
+  setTimeout(() => notif.classList.add("show"), 50);
 
-    setTimeout(() => {
-        notif.classList.remove("show");
-        setTimeout(() => notif.remove(), 500);
-    }, duration);
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 500);
+  }, duration);
 }
 
 function nextStep(step) {
@@ -263,9 +263,12 @@ async function reportForm(e) {
   document.getElementById("step3").style.display = "none";
   document.getElementById("loading").style.display = "block";
 
+  const garbageTypeValue = document.querySelector('input[name="reportType"]:checked').value;
+  const garbageStatusValue = document.getElementById("garbage-status").value;
+
   let formData = new FormData();
-  formData.append("garbage_type", garbageTypes[document.querySelector('input[name="reportType"]:checked').value - 1]);
-  formData.append("garbage_status", statusList[document.getElementById("garbage-status").value - 1]);
+  formData.append("garbage_type", garbageTypeValue);
+  formData.append("garbage_status", garbageStatusValue);
   formData.append("user_contact", document.getElementById("user_contact").value.trim());
   formData.append("location", document.getElementById("place").value);
   formData.append("latitude", document.getElementById("location").innerText.split(",")[0].split(":")[1].trim());
@@ -302,8 +305,8 @@ async function reportForm(e) {
       const mailForm = new FormData();
       mailForm.append("report_id", reportData.report_id);
       mailForm.append("user_contact", document.getElementById("user_contact").value.trim());
-      mailForm.append("garbage_type", garbageTypes[document.querySelector('input[name="reportType"]:checked').value - 1]);
-      mailForm.append("garbage_status", statusList[document.getElementById("garbage-status").value - 1]);
+      mailForm.append("garbage_type", garbageTypeValue);
+      mailForm.append("garbage_status", garbageStatusValue);
       mailForm.append("location", document.getElementById("place").value);
       mailForm.append("latitude", document.getElementById("location").innerText.split(",")[0].split(":")[1].trim());
       mailForm.append("longitude", document.getElementById("location").innerText.split(",")[1].split(":")[1].trim());
@@ -326,7 +329,7 @@ async function reportForm(e) {
       document.getElementById("loading").style.display = "none";
       document.getElementById("completed").style.display = "block";
       showNotification("Report successful!", "success");
-      
+
       setTimeout(async () => {
         window.location.href = "Home.html";
       }, 3000)
@@ -349,7 +352,7 @@ async function requestCode() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "same-origin",
-      body: JSON.stringify({ otp: otpInput.value})
+      body: JSON.stringify({ otp: otpInput.value })
     });
 
     const data = await response.json();

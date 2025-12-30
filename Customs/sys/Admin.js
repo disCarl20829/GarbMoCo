@@ -14,7 +14,26 @@ function showNotification(message, type = "info", duration = 3000) {
   }, duration);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const response = await fetch("Customs/dbase/GetUser.php", {
+      method: "GET",
+      credentials: "same-origin"
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+
+    const data = await response.json();
+
+    if (data.info.user_role !== "User") {
+      window.location.href = "index.html";
+    }
+  } catch (err) {
+    console.errror("Error retrieving user info: ", err);
+  }
+
   const logoutButton = document.querySelector(".logout");
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
@@ -22,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch("Customs/dbase/LogOut.php", {
         method: "POST"
       });
-      
+
       setTimeout(() => {
         window.location.href = "index.html";
       }, 5000)
@@ -32,13 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const trackBtn = document.querySelector("#gototrack");
   if (trackBtn) {
     trackBtn.addEventListener("click", function () {
-      window.location.href = "Logs.html";
-    });
-  }
-
-  const veriBtn = document.querySelector("#gotoverify");
-  if (veriBtn) {
-    veriBtn.addEventListener("click", function () {
       window.location.href = "Logs.html";
     });
   }

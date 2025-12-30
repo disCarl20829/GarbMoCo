@@ -10,17 +10,17 @@ if (empty($_SESSION['user_id']) || empty($_SESSION['isLogged'])) {
     exit;
 }
 
-$user_id = intval($_SESSION['user_id']);
-$garbage_type = $_POST['garbage_type'] ?? '';
-$garbage_status = $_POST['garbage_status'] ?? '';
+$user_id = (int) $_SESSION['user_id'];
+$garbage_type = (int) ($_POST['garbage_type'] ?? 0);
+$garbage_status = (int) ($_POST['garbage_status'] ?? 0);
 $location = $_POST['location'] ?? '';
-$latitude = floatval($_POST['latitude'] ?? 0);
-$longitude = floatval($_POST['longitude'] ?? 0);
+$latitude = (float) ($_POST['latitude'] ?? 0);
+$longitude = (float) ($_POST['longitude'] ?? 0);
 $description = $_POST['description'] ?? '';
 
 $uploadedPaths = [];
-$targetDir = "uploads/";
-$targetDirVid = "videos/";
+$targetDir = "uploads/images/";
+$targetDirVid = "uploads/videos/";
 
 // Handle multiple images
 if (!empty($_FILES['images']['name'][0])) {

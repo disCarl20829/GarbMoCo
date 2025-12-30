@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 
 include __DIR__ . '/db_connect.php';
 
-if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] === true && $_SESSION['role'] !== 'admin') {
+if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] === true && $_SESSION['user_role'] !== 'Admin') {
     die("Invalid access.");
 }
 
