@@ -24,14 +24,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
+      
+    if (response.status === 401) {
+        window.location.href = "index.html";
+    }
 
     const data = await response.json();
 
-    if (data.info.user_role !== "User") {
-      window.location.href = "index.html";
-    }
+	if (data.info.user_role !== "User" && data.info.user_role !== "Admin") {
+  		window.location.href = "index.html";
+	}
   } catch (err) {
-    console.errror("Error retrieving user info: ", err);
+    console.error("Error retrieving user info: ", err);
+    window.location.href = "index.html";
   }
 
   const logoutButton = document.querySelector(".logout");

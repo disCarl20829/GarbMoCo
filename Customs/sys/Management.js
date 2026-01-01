@@ -20,6 +20,8 @@ async function addAdmin() {
       method: "GET",
       credentials: "same-origin"
     });
+      
+    if (response.status === 401) return;
 
     if (!response.ok) {
       throw new Error("Network response was not ok.");
@@ -36,11 +38,10 @@ async function addAdmin() {
       optionSelector.appendChild(option);
     }
   } catch (err) {
-    console.errror("Error retrieving user info: ", err);
+    console.error("Error retrieving user info: ", err);
   }
 }
 
-if (window.location.pathname.endsWith("Management.html")) {
   document.addEventListener("DOMContentLoaded", function () {
     const optionSelector = document.getElementById("role");
 
@@ -129,7 +130,6 @@ if (window.location.pathname.endsWith("Management.html")) {
 
     });
   });
-}
 
 function showPass() {
   var password = document.getElementById("password");

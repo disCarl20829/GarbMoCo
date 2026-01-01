@@ -26,13 +26,15 @@ if (!$stmt->execute()) {
 $directory = $stmt->get_result()->fetch_assoc()['directory'];
 $report_id = $_POST['report_id'] ?? null;
 
+/*
 if (!$report_id) {
     http_response_code(400);
     echo json_encode(["status" => "error", "message" => "Missing report_id"]);
     exit;
 }
+*/
 
-$link = "https://localhost/GarbMoCo/Logs.html?report_id=" . urlencode($report_id);
+$link = "https://garbmoco.infinityfree.me/Logs?report_id=" . urlencode($report_id);
 
 
 try {

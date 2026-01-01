@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const res = await fetch('Customs/dbase/session_checker.php', { credentials: 'same-origin' });
         const data = await res.json();
 
-        if (!data.isLogged) {
+        if (data.isLogged === false) {
             window.location.href = 'index.html';
         }
     } catch (err) {

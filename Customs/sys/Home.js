@@ -14,7 +14,31 @@ function showNotification(message, type = "info", duration = 3000) {
     }, duration);
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const response = await fetch("Customs/dbase/GetUser.php", {
+      method: "GET",
+      credentials: "same-origin"
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+      
+    if (response.status === 401) {
+        window.location.href = "index.html";
+    }
+
+    const data = await response.json();
+
+	if (data.info.user_role !== "User" && data.info.user_role !== "Admin") {
+  		window.location.href = "index.html";
+	}
+  } catch (err) {
+    console.error("Error retrieving user info: ", err);
+    window.location.href = "index.html";
+  }
+    
   const logoutButton = document.querySelector(".logout");
   if (logoutButton) {
     logoutButton.addEventListener("click", function () {
@@ -49,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
   const content = document.querySelector('.content');
